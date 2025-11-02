@@ -1,30 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-=================================================================================================================
-Project: News Aggregator
-File: README.md
-Author: Mobin Yousefi (GitHub: github.com/mobinyousefi-cs)
-Created: 2025-11-02
-Updated: 2025-11-02
-License: MIT License (see LICENSE file for details)
-=
-
-Description:
-A production-grade Django web app that aggregates news articles from configured sources.
-Includes a simple scraper for *The Onion* (as example), storage, and UI with TailwindCDN.
-
-Usage:
-See the Quickstart below.
-
-Notes:
-- Uses `requests` + `BeautifulSoup` for scraping; management command `fetch_news` orchestrates pulls.
-- Easily extendable: add new scrapers under `core/scraper/` and register in `Source` records.
-- CI with GitHub Actions; pytest for basic model tests.
-
-===============================================================================================================
-"""
-
 # News Aggregator (Django)
 
 ## Quickstart
@@ -70,4 +43,5 @@ docker compose up --build
 ```
 
 ## License
+
 MIT
