@@ -1,47 +1,152 @@
-# News Aggregator (Django)
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+=================================================================================================================
+Project: News Aggregator
+File: README.md
+Author: Mobin Yousefi (GitHub: github.com/mobinyousefi-cs)
+Created: 2025-11-02
+Updated: 2025-11-02
+License: MIT License (see LICENSE file for details)
+=
 
-## Quickstart
+Description:
+A modern, full-stack **Django-based News Aggregator Web Application** that scrapes, stores, and displays articles from multiple online sources. The project demonstrates web scraping with `requests` + `BeautifulSoup`, structured data modeling with Django ORM, and a clean TailwindCSS-powered UI.
+
+Usage:
+Refer to the Quickstart section for setup instructions.
+
+Notes:
+- Easily extensible to new news sources.
+- Includes a modular scraper interface and management commands.
+- Uses GitHub Actions for CI/CD and pytest for testing.
+
+=================================================================================================================
+"""
+
+# 📰 Django News Aggregator
+
+A powerful, elegant, and modular **news aggregation web app** built with **Python Django**. This project collects the latest articles from your favorite sites (starting with *The Onion* as an example) and presents them in a unified, minimalist dashboard.
+
+## 🚀 Features
+- **Real-Time News Fetching** — Scrapes live articles using BeautifulSoup.
+- **Modular Architecture** — Add new scrapers by simply dropping files into `core/scraper/`.
+- **Admin Dashboard** — Manage sources and inspect fetched articles.
+- **Responsive UI** — Built with TailwindCSS for a clean, modern look.
+- **Database-Driven Storage** — Saves all articles to the database (SQLite by default).
+- **Optimized CI/CD** — Preconfigured GitHub Actions workflow.
+- **Tests Included** — Basic model validation using pytest.
+
+---
+
+## ⚙️ Quickstart Guide
+
 ```bash
-python -m venv .venv && source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+# 1️⃣ Create and activate a virtual environment
+python -m venv .venv && source .venv/bin/activate  # On Windows: .venv\\Scripts\\activate
+
+# 2️⃣ Install dependencies
 pip install -r requirements.txt
+
+# 3️⃣ Configure environment
 cp env.example .env
+
+# 4️⃣ Initialize the database
 python manage.py migrate
 python manage.py createsuperuser
+
+# 5️⃣ Fetch news (example: The Onion)
 python manage.py fetch_news --source onion --limit 30
+
+# 6️⃣ Run the server
 python manage.py runserver
 ```
-Open: http://127.0.0.1:8000/
 
-## Environment
-Create `.env` from `env.example`.
+Visit → [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-```
-DEBUG=true
-SECRET_KEY=change-me
-ALLOWED_HOSTS=127.0.0.1,localhost
-DATABASE_URL=sqlite:///db.sqlite3
-TIME_ZONE=America/Chicago
-```
+---
 
-## Extend with New Sources
-1. Implement a scraper class in `core/scraper/<name>.py` deriving from `BaseScraper`.
-2. Register a `Source` row in the admin or via shell:
+## 🧩 Adding a New News Source
+
+1. Create a new scraper file inside `core/scraper/`:
+   ```bash
+   touch core/scraper/techcrunch.py
+   ```
+2. Inherit from `BaseScraper` and implement the `fetch()` method.
+3. Register your scraper in `core/scraper/__init__.py` under `SCRAPERS`.
+4. Add a `Source` record in the Django admin or shell:
    ```python
    from core.models import Source
-   Source.objects.get_or_create(name="MySite", homepage="https://mysite.com", parser_name="mysite")
+   Source.objects.create(
+       name="TechCrunch",
+       homepage="https://techcrunch.com/",
+       parser_name="techcrunch"
+   )
    ```
-3. Run `python manage.py fetch_news --source mysite`.
+5. Run:
+   ```bash
+   python manage.py fetch_news --source techcrunch
+   ```
 
-## Tests
+Your new articles will appear instantly on the homepage!
+
+---
+
+## 🧪 Testing
+
+Run unit tests easily with:
 ```bash
 pytest -q
 ```
 
-## Docker (optional)
+---
+
+## 🐳 Docker Support
+
+For quick deployment:
 ```bash
 docker compose up --build
 ```
 
-## License
+This spins up a fully functional environment with all dependencies preconfigured.
 
-MIT
+---
+
+## 🧠 Tech Stack
+- **Backend:** Django 5.x
+- **Frontend:** TailwindCSS (CDN)
+- **Scraping:** BeautifulSoup4 + Requests
+- **Database:** SQLite / PostgreSQL
+- **CI/CD:** GitHub Actions + pytest
+- **Environment:** python-dotenv + django-environ
+
+---
+
+## 📂 Project Structure
+```
+news_aggregator/
+├── config/               # Django configuration
+├── core/                 # Main application logic
+│   ├── scraper/          # Modular web scrapers
+│   ├── templates/        # HTML templates (Tailwind)
+│   ├── static/           # Static assets
+│   └── tests/            # Unit tests
+├── manage.py             # Django entrypoint
+├── requirements.txt      # Dependencies
+├── Dockerfile            # Docker build file
+├── docker-compose.yml    # Container orchestration
+└── README.md             # Project documentation
+```
+
+---
+
+## 🧾 License
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+**Mobin Yousefi** — [GitHub Profile](https://github.com/mobinyousefi-cs)
+
+> "Information is power — automate its flow with intelligence." — *Mobin Yousefi*
+

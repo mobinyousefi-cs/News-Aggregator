@@ -1,0 +1,46 @@
+<!--
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+=================================================================================================================
+Project: News Aggregator
+File: core/templates/core/base.html
+Author: Mobin Yousefi (GitHub: github.com/mobinyousefi-cs)
+Created: 2025-11-02
+Updated: 2025-11-02
+License: MIT License (see LICENSE file for details)
+=
+Description:
+Base template with Tailwind CDN and a clean layout.
+===============================================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}News Aggregator{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white border-b">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-semibold">🗞️ News Aggregator</a>
+      <nav class="space-x-4">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/sources/" class="hover:underline">Sources</a>
+        <a href="/admin/" class="hover:underline">Admin</a>
+        <a href="https://github.com/mobinyousefi-cs" class="hover:underline" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-6">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="border-t text-sm text-gray-500">
+    <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <p>© 2025 Mobin Yousefi — MIT License</p>
+      <p class="mt-2 sm:mt-0">Built with Django, requests & BeautifulSoup</p>
+    </div>
+  </footer>
+</body>
+</html>

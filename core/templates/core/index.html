@@ -1,0 +1,44 @@
+<!--
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+=================================================================================================================
+Project: News Aggregator
+File: core/templates/core/index.html
+Author: Mobin Yousefi (GitHub: github.com/mobinyousefi-cs)
+Created: 2025-11-02
+Updated: 2025-11-02
+License: MIT License (see LICENSE file for details)
+=
+Description:
+Homepage listing latest articles with pagination.
+===============================================================================================================
+-->
+{% extends 'core/base.html' %}
+{% block title %}Latest Articles — News Aggregator{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">Latest Articles</h1>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for a in page_obj.object_list %}
+  <article class="bg-white rounded-2xl shadow p-4">
+    {% if a.image_url %}
+    <img src="{{ a.image_url }}" alt="{{ a.title }}" class="w-full h-40 object-cover rounded-xl mb-3" onerror="this.style.display='none'"/>
+    {% endif %}
+    <h2 class="font-semibold"><a href="{% url 'core:article_detail' a.pk %}" class="hover:underline">{{ a.title }}</a></h2>
+    <p class="text-sm text-gray-500 mt-1">{{ a.source.name }} · {{ a.published_at|date:"M d, Y H:i" }}</p>
+    <a href="{{ a.url }}" target="_blank" rel="noopener" class="text-sm mt-3 inline-block underline">Open original ↗</a>
+  </article>
+  {% empty %}
+  <p>No articles yet. Run <code>python manage.py fetch_news --source onion</code>.</p>
+  {% endfor %}
+</div>
+
+<div class="mt-8 flex items-center justify-center gap-2">
+  {% if page_obj.has_previous %}
+    <a class="px-3 py-1 rounded border" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+  <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a class="px-3 py-1 rounded border" href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!--
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+=================================================================================================================
+Project: News Aggregator
+File: core/templates/core/article_detail.html
+Author: Mobin Yousefi (GitHub: github.com/mobinyousefi-cs)
+Created: 2025-11-02
+Updated: 2025-11-02
+License: MIT License (see LICENSE file for details)
+=
+Description:
+Article detail page with link out to original.
+===============================================================================================================
+-->
+{% extends 'core/base.html' %}
+{% block title %}{{ article.title }} — News Aggregator{% endblock %}
+{% block content %}
+<article class="bg-white rounded-2xl shadow p-6">
+  <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
+  <p class="text-sm text-gray-500 mt-1">{{ article.source.name }} · {{ article.published_at|date:"M d, Y H:i" }}</p>
+  {% if article.image_url %}
+  <img src="{{ article.image_url }}" alt="{{ article.title }}" class="w-full max-h-96 object-cover rounded-xl my-4" onerror="this.style.display='none'"/>
+  {% endif %}
+  <a href="{{ article.url }}" target="_blank" rel="noopener" class="underline">Open original ↗</a>
+</article>
+{% endblock %}
